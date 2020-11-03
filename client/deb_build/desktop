@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=asset-digitization
+Version=1.0
+Exec=/usr/bin/asset-digitization
+Comment=Copyright Dr. Ibrahim
+Icon=/usr/share/asset-digitization/asset-digitization.png
+Type=Application
+Terminal=true
+StartupNotify=true
+Encoding=UTF-8

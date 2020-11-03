@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <title>Test Map</title>
+
+    <style>
+        #mapid {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+
+</head>
+
+<body>
+    <div id="mapid"></div>
+
+    <script>
+        //epsg4326 = new OpenLayers.Projection("EPSG:4326"); //WGS 1984 projection
+        //projectTo = map.getProjectionObject(); //The map projection (Spherical Mercator)
+        //var lonLat = new OpenLayers.LonLat({{ center }} ).transform(epsg4326, projectTo);
+        console.log({{ center }})
+        var captured = {{ marker| tojson }};
+        console.log("captured"+captured)
+        var mymap = L.map('mapid').setView([{{ center }}], 13);
+        var marker = L.marker([3.073281, 101.518463]).addTo(mymap);
+        var layer = L.layerGroup();
+
+        console.log("Layer"+layer)
+
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            subdomains: ['a', 'b', 'c']
+        }).addTo(mymap)
+
+        for (var object in captured) {
+            console.log("Object"+object)
+            var lng = captured[object].lng;
+            var lat = captured[object].lat;
+            var ltt = "["+lng+","+lat+"]"
+            console.log("Lng"+lng)
+            console.log("Lat"+lat)
+            console.log("Full"+ltt)
+            L.marker([ltt]).addTo(mymap);
+        }
+
+        mymap.removeLayer(layer);
+        layer = L.layerGroup(feature);
+        mymap.addLayer(layer);
+
+    </script>
+</body>
+
+</html>

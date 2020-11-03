@@ -1,0 +1,6 @@
+pyserial
+dlib
+scikit-image
+protobuf
+easydict
+requests

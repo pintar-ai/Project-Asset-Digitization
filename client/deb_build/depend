@@ -1,0 +1,8 @@
+Package: asset-digitization
+Version: 1.0
+Maintainer: GMNX <azzam.cyber@gmail.com>
+Architecture: amd64
+Priority: optional
+Depends: nvidia-docker2 (>=2.2.0)
+Description: Client for asset digitization
+ Utilize docker and nvidia to run this program

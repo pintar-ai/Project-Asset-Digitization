@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TEST MAP</title>
+
+    <!--leaflet css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Fonts and icons -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+    <style>
+        #mapid {
+            height: 800px;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+    <h1>Map</h1>
+    <div id="mapid">
+
+    </div>
+
+</body>
+
+<script>
+    var captured = {{ marker| tojson }};
+    var captelco = {{ telco| tojson }};
+
+    var mymap = L.map('mapid').setView([ {{clat}}, {{clon}}], 15);
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoicGVyY2VwdHJvbnNlcnZpY2VzIiwiYSI6ImNqdnEyZWM4NDJmZWo0OXFvNnZmMDgwODcifQ.XbWZ8kPvVjiOF8QgyoQeuA'
+    }).addTo(mymap);
+
+    for (var object in captured) {
+        lat         = captured[object].lat;
+        lon         = captured[object].lng;
+        description = captured[object].description;
+        
+        marker = new L.marker([lat,lon])
+            .bindPopup(captured[object].description)
+            .addTo(mymap);
+    }
+
+</script>
+
+
+
+
+</html>

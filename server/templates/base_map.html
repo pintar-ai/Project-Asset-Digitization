@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Report Service</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html{
+    width:100%;
+    height:100%;
+    overflow-y: hidden; 
+    /*overflow-x: hidden;*/
+}
+body{
+    width:100%;
+    height:100%;
+    background-color:#DDD;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 1px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+  height: 15%;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 10%;
+  height: 100%; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#mapdiv {
+  float: left;
+  width: 90%;
+  /*background-color: #f1f1f1;*/
+  height: 100%; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+  
+}
+
+section{
+  height: 75%;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  height: 10%;
+}
+
+
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  section, nav, div {
+    width: 100%;
+    height: auto;
+  }
+
+  
+}
+</style>
+</head>
+<body>
+<header>
+  <h2>Perceptron Services</h2>
+</header>
+<section>
+  <nav>
+    <ul>
+      <li><a >Welcome back, {{ username }}</a></li>
+       <button type="button" onclick="window.location.href='{{ url_for( 'logout' ) }}';">Logout</button>
+       <button type="button" onclick="window.location.href='{{ url_for( 'userdash' ) }}';">Back to Menu</button>  
+      <li><a >Date shown</a></li>
+      <script>
+        var captured ={{ marker|tojson }};
+        function filterMarker(date)
+        {
+            console.log("filtering to date "+date)
+            if( map ) {
+              map.removeLayer(vectorLayer);
+              vectorLayer.removeAllFeatures();
+              for (var object in captured) {
+                var feature = new OpenLayers.Feature.Vector(
+                      new OpenLayers.Geometry.Point( captured[object].lng , captured[object].lat  ).transform(epsg4326, projectTo),
+                      {description:captured[object].description} ,
+                      {externalGraphic: "{{url_for('static', filename='marker.png')}}", graphicHeight: 30, graphicWidth: 30, graphicXOffset:-12, graphicYOffset:-25  }
+                  );
+                if (~captured[object].description.indexOf(date)){
+                  console.log("passing date "+captured[object].description)
+                  vectorLayer.addFeatures(feature);
+                }else if (date==='all'){
+                  vectorLayer.addFeatures(feature);
+                }
+                
+              }
+             
+              map.addLayer(vectorLayer);
+            }
+        }
+      </script>
+       <select name="date" onchange="filterMarker(this.value);">
+        {% for date in dates %}
+          <option value= "{{date}}">{{date}}</option>
+        {% endfor %}
+          <option value='all' selected="selected">All</option>
+        </select> 
+    </ul>
+  </nav>
+  
+  <div id="mapdiv">
+  </div>
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script>
+    map = new OpenLayers.Map("mapdiv");
+    map.addLayer(new OpenLayers.Layer.OSM());
+    
+    epsg4326 =  new OpenLayers.Projection("EPSG:4326"); //WGS 1984 projection
+    projectTo = map.getProjectionObject(); //The map projection (Spherical Mercator)
+
+    var lonLat = new OpenLayers.LonLat( {{ center }} ).transform(epsg4326, projectTo);
+          
+    
+    var zoom=14;
+    map.setCenter (lonLat, zoom);
+    var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
+    
+    // Define markers as "features" of the vector layer:
+    
+
+    for (var object in captured) {
+      var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( captured[object].lng, captured[object].lat  ).transform(epsg4326, projectTo),
+            {description:captured[object].description} ,
+            {externalGraphic: "{{url_for('static', filename='marker.png')}}", graphicHeight: 30, graphicWidth: 30, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);  
+      }
+   
+    map.addLayer(vectorLayer);
+ 
+    
+    //Add a selector control to the vectorLayer with popup functions
+    var controls = {
+      selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup })
+    };
+
+    function createPopup(feature) {
+      feature.popup = new OpenLayers.Popup.FramedCloud("pop",
+          feature.geometry.getBounds().getCenterLonLat(),
+          null,
+          '<div class="markerContent">'+feature.attributes.description+'</div>',
+          null,
+          true,
+          function() { controls['selector'].unselectAll(); }
+      );
+      //feature.popup.closeOnMove = true;
+      map.addPopup(feature.popup);
+    }
+
+    function destroyPopup(feature) {
+      feature.popup.destroy();
+      feature.popup = null;
+    }
+    
+    map.addControl(controls['selector']);
+    controls['selector'].activate();
+
+    </script> 
+</section>
+
+<footer>
+  <p>© 2019 Cairo UTM</p>
+</footer>
+
+</body>
+</html>

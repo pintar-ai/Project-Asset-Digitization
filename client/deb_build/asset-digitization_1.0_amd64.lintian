@@ -1,0 +1,16 @@
+E: asset-digitization: changelog-file-missing-in-native-package
+W: asset-digitization: copyright-without-copyright-notice
+W: asset-digitization: no-section-field
+W: asset-digitization: non-standard-dir-perm usr/ 0775 != 0755
+W: asset-digitization: non-standard-dir-perm usr/bin/ 0775 != 0755
+W: asset-digitization: non-standard-dir-perm usr/share/ 0775 != 0755
+W: asset-digitization: non-standard-dir-perm usr/share/applications/ 0775 != 0755
+W: asset-digitization: non-standard-file-perm usr/share/applications/asset-digitization.desktop 0664 != 0644
+W: asset-digitization: non-standard-dir-perm usr/share/asset-digitization/ 0775 != 0755
+W: asset-digitization: non-standard-dir-perm usr/share/doc/ 0775 != 0755
+W: asset-digitization: non-standard-dir-perm usr/share/doc/asset-digitization/ 0775 != 0755
+W: asset-digitization: non-standard-file-perm usr/share/doc/asset-digitization/copyright 0664 != 0644
+W: asset-digitization: binary-without-manpage usr/bin/asset-digitization
+E: asset-digitization: md5sums-lists-nonexistent-file usr/share/doc/asset-digitization/copyrigh
+W: asset-digitization: file-missing-in-md5sums usr/share/doc/asset-digitization/copyright
+E: asset-digitization: script-without-interpreter control/preinst

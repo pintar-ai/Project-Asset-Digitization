@@ -1,0 +1,28 @@
+"1"	"10.0"	"3.171919"	"101.721069"	"2019-01-17 01:09:01"	"test"
+"2"	"10.0"	"3.172133"	"101.721099"	"2019-01-17 01:09:11"	"test"
+"3"	"10.0"	"3.172403"	"101.721112"	"2019-01-17 01:09:21"	"test"
+
+
+{"altitude":"10.0",
+"latitude":"3.171919",
+"longitude":"101.721069",
+"image":"iVBORw0KGgoAAAANSUhEUgAAAGQAAAApCAYAAADDJIzmAAAWdUlEQVR4nO2beXxUZZb373NvhbBJkEUBZWlcWmAafdVW6RdtWZpNaFxwo7XBFrfW0Z7phdYGtdsNgQQxYDOtKCg4Sosbbzsvtql7b1UqGwmVPalUhRAgkJCdJGSr+3znj1u5SXUSwZ6eHmfGw+fWJ6Tuvc/znN95zvmdc54ofCNfK1F6/keGO2mvqcKy5H",
+"date_taken":"2019-06-17 01:06:15",
+"username":"test"
+}
+
+{"altitude":"10.0",
+"latitude":"3.172133",
+"longitude":"101.721099",
+"image":"iVBORw0KGgoAAAANSUhEUgAAAGQAAAApCAYAAADDJIzmAAAWdUlEQVR4nO2beXxUZZb373NvhbBJkEUBZWlcWmAafdVW6RdtWZpNaFxwo7XBFrfW0Z7phdYGtdsNgQQxYDOtKCg4Sosbbzsvtql7b1UqGwmVPalUhRAgkJCdJGSr+3znj1u5SXUSwZ6eHmfGw+fWJ6Tuvc/znN95zvmdc54ofCNfK1F6/keGO2mvqcKy5H",
+"date_taken":"2019-06-17 01:08:00",
+"username":"test"
+}
+
+{"altitude":"10.0",
+"latitude":"3.172403",
+"longitude":"101.721112",
+"image":"iVBORw0KGgoAAAANSUhEUgAAAGQAAAApCAYAAADDJIzmAAAWdUlEQVR4nO2beXxUZZb373NvhbBJkEUBZWlcWmAafdVW6RdtWZpNaFxwo7XBFrfW0Z7phdYGtdsNgQQxYDOtKCg4Sosbbzsvtql7b1UqGwmVPalUhRAgkJCdJGSr+3znj1u5SXUSwZ6eHmfGw+fWJ6Tuvc/znN95zvmdc54ofCNfK1F6/keGO2mvqcKy5H",
+"date_taken":"2019-06-17 01:09:21",
+"username":"test"
+}
