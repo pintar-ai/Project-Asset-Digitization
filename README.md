@@ -3,7 +3,7 @@
 #### This Repo is for Street Light property manager. Including Deep Learning Docker in the Registry
 
 **SCHEMATIC**
-    ![alt text](https://gitlab.com/gmnx/street-light/raw/master/schematic.png "Schematic")
+    ![alt text](https://github.com/pintar-ai/Project-Asset-Digitization/raw/master/schematic.png "Schematic")
 
 weight for streetpole
 https://drive.google.com/file/d/1qtiv82YHzkHE0SmhHl2zIGxtTMqK7fv3/view?usp=sharing
